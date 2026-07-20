@@ -22,7 +22,7 @@ from flask import Flask, Response, jsonify, render_template, request, send_file
 from itsdangerous import BadSignature, SignatureExpired, URLSafeTimedSerializer
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=".")
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
 app.config["JSON_AS_ASCII"] = False
 app.secret_key = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
