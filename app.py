@@ -354,6 +354,10 @@ def inspect_with_gallery_dl(url: str) -> dict[str, Any]:
         if line.strip().startswith(("https://", "http://"))
     ][:MAX_MEDIA_FILES]
     if completed.returncode != 0 or not urls:
+        detail = (completed.stderr or completed.stdout or "").strip().splitlines()
+        detail_text = detail[-1][:300] if detail else ""
+        if detail_text:
+            raise RuntimeError(f"تعذر استخراج الوسائط من المنشور العام. ({detail_text})")
         raise RuntimeError("تعذر استخراج الوسائط من المنشور العام.")
 
     image_extensions = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
@@ -389,12 +393,14 @@ def inspect_media(url: str, platform: str) -> dict[str, Any]:
         try:
             return method(url)
         except Exception as exc:
-            errors.append(str(exc))
+            errors.append(f"{method.__name__}: {exc}")
 
-    message = " | ".join(errors).lower()
-    if any(word in message for word in ("login", "cookie", "private", "checkpoint")):
+    combined = " | ".join(errors)
+    lowered = combined.lower()
+    if any(word in lowered for word in ("login", "cookie", "private", "checkpoint")):
         raise RuntimeError("المنشور عام لكن المنصة طلبت تسجيل دخول. سنحتاج إضافة Cookies للحساب لاحقًا.")
-    raise RuntimeError("تعذر جلب المنشور الآن. تأكد أن الرابط عام وصحيح ثم جرّب مرة أخرى.")
+    # DEBUG TEMP: تفاصيل تقنية حقيقية مؤقتة للتشخيص — نشيلها بعد ما نلاقي السبب
+    raise RuntimeError(f"تعذر جلب المنشور الآن. [تفاصيل تقنية]: {combined[:600]}")
 
 
 def safe_files(directory: str) -> list[Path]:
