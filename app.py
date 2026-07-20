@@ -140,28 +140,80 @@ def validate_social_url(raw_url: str) -> tuple[str, str]:
             raise ValueError("استخدم رابط فيديو أو صورة محددة من TikTok، وليس رابط الحساب.")
         return url, "tiktok"
 
-    if host_matches(host, "instagram.com"):
-        if not re.match(r"^/(reel|reels|p|tv)/[A-Za-z0-9_-]+", path, re.I):
-            raise ValueError("استخدم رابط Reel أو منشور محدد من Instagram.")
-        return url, "instagram"
-
     if host_matches(host, "x.com") or host_matches(host, "twitter.com"):
         if not re.match(r"^/[^/]+/status/\d+", path, re.I):
             raise ValueError("استخدم رابط منشور محدد من X بالشكل x.com/user/status/...")
         return url, "x"
 
-    if host_matches(host, "youtube.com") or host_matches(host, "youtu.be") or host_matches(host, "music.youtube.com"):
-        valid_path = (
-            host == "youtu.be" and len(path.strip("/")) > 0
-            or re.match(r"^/(watch|shorts/[A-Za-z0-9_-]+|embed/[A-Za-z0-9_-]+|live/[A-Za-z0-9_-]+)", path, re.I)
-        )
-        if path.rstrip("/") == "/watch" and "v=" not in (parsed.query or ""):
-            valid_path = False
-        if not valid_path:
-            raise ValueError("استخدم رابط فيديو محدد من YouTube، وليس رابط قناة أو الصفحة الرئيسية.")
-        return url, "youtube"
+    if host_matches(host, "reddit.com"):
+        if "/comments/" not in path.lower():
+            raise ValueError("استخدم رابط منشور محدد من Reddit فيه /comments/.")
+        return url, "reddit"
 
-    raise ValueError("الأداة تدعم روابط TikTok وInstagram وX وYouTube فقط.")
+    if host_matches(host, "pinterest.com") or host_matches(host, "pin.it"):
+        if host_matches(host, "pin.it"):
+            if len(path.strip("/")) == 0:
+                raise ValueError("رابط Pinterest غير صحيح.")
+            return url, "pinterest"
+        if not re.match(r"^/pin/[A-Za-z0-9_-]+", path, re.I):
+            raise ValueError("استخدم رابط Pin محدد من Pinterest.")
+        return url, "pinterest"
+
+    if host_matches(host, "dailymotion.com") or host_matches(host, "dai.ly"):
+        if host_matches(host, "dai.ly"):
+            if len(path.strip("/")) == 0:
+                raise ValueError("رابط Dailymotion غير صحيح.")
+            return url, "dailymotion"
+        if not re.match(r"^/video/[A-Za-z0-9]+", path, re.I):
+            raise ValueError("استخدم رابط فيديو محدد من Dailymotion.")
+        return url, "dailymotion"
+
+    if host_matches(host, "vimeo.com"):
+        if not re.match(r"^/\d+", path):
+            raise ValueError("استخدم رابط فيديو محدد من Vimeo.")
+        return url, "vimeo"
+
+    if host_matches(host, "rumble.com"):
+        if not re.match(r"^/v[A-Za-z0-9]+", path, re.I):
+            raise ValueError("استخدم رابط فيديو محدد من Rumble.")
+        return url, "rumble"
+
+    if host_matches(host, "soundcloud.com"):
+        segments = [s for s in path.split("/") if s]
+        if len(segments) < 2:
+            raise ValueError("استخدم رابط مقطع صوتي محدد من SoundCloud.")
+        return url, "soundcloud"
+
+    if host_matches(host, "twitch.tv"):
+        if not (host_matches(host, "clips.twitch.tv") or "/clip/" in path.lower()):
+            raise ValueError("الأداة تدعم مقاطع (Clips) تويتش فقط، مش البث المباشر.")
+        return url, "twitch"
+
+    if host_matches(host, "imgur.com"):
+        if len(path.strip("/")) == 0:
+            raise ValueError("استخدم رابط صورة أو ألبوم محدد من Imgur.")
+        return url, "imgur"
+
+    if host_matches(host, "9gag.com"):
+        if not re.match(r"^/gag/[A-Za-z0-9]+", path, re.I):
+            raise ValueError("استخدم رابط منشور محدد من 9GAG.")
+        return url, "ninegag"
+
+    if host_matches(host, "snapchat.com"):
+        if "/spotlight/" not in path.lower():
+            raise ValueError("الأداة تدعم Spotlight العام فقط من Snapchat.")
+        return url, "snapchat"
+
+    if host_matches(host, "bsky.app"):
+        if not re.match(r"^/profile/[^/]+/post/[A-Za-z0-9]+", path, re.I):
+            raise ValueError("استخدم رابط منشور محدد من Bluesky.")
+        return url, "bluesky"
+
+    raise ValueError(
+        "الأداة تدعم TikTok وX وReddit وPinterest وDailymotion وVimeo وRumble "
+        "وSoundCloud وTwitch (Clips) وImgur و9GAG وSnapchat (Spotlight) وBluesky."
+    )
+
 
 
 def pin_is_valid() -> bool:
@@ -317,11 +369,15 @@ def inspect_with_gallery_dl(url: str) -> dict[str, Any]:
     }
 
 
+GALLERY_FIRST_PLATFORMS = {"reddit", "pinterest", "imgur", "ninegag"}
+
+
 def inspect_media(url: str, platform: str) -> dict[str, Any]:
-    # Instagram is usually faster through gallery-dl; TikTok/X/YouTube are usually better through yt-dlp.
+    # Image/gallery-style platforms are usually faster through gallery-dl;
+    # video/audio platforms are usually better through yt-dlp.
     methods = (
         (inspect_with_gallery_dl, inspect_with_ytdlp)
-        if platform == "instagram"
+        if platform in GALLERY_FIRST_PLATFORMS
         else (inspect_with_ytdlp, inspect_with_gallery_dl)
     )
     errors: list[str] = []
