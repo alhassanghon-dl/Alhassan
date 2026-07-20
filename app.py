@@ -20,6 +20,7 @@ from urllib.parse import urlparse
 import yt_dlp
 from flask import Flask, Response, jsonify, render_template, request, send_file
 from itsdangerous import BadSignature, SignatureExpired, URLSafeTimedSerializer
+from werkzeug.exceptions import HTTPException
 
 
 app = Flask(__name__, template_folder=".")
@@ -165,10 +166,10 @@ def ydl_common_options(logger: CaptureLogger | None = None) -> dict[str, Any]:
         "no_warnings": True,
         "noplaylist": False,
         "playlistend": MAX_MEDIA_FILES,
-        "socket_timeout": 30,
-        "retries": 2,
-        "fragment_retries": 2,
-        "extractor_retries": 2,
+        "socket_timeout": 15,
+        "retries": 1,
+        "fragment_retries": 1,
+        "extractor_retries": 1,
         "cachedir": False,
         "http_headers": {
             "User-Agent": USER_AGENT,
@@ -261,9 +262,9 @@ def gallery_command_base() -> list[str]:
         "--config-ignore",
         "--no-input",
         "--http-timeout",
-        "30",
+        "20",
         "--retries",
-        "2",
+        "1",
     ]
     cookie_file = prepare_cookie_file()
     if cookie_file:
@@ -277,7 +278,7 @@ def inspect_with_gallery_dl(url: str) -> dict[str, Any]:
         command,
         capture_output=True,
         text=True,
-        timeout=75,
+        timeout=45,
         check=False,
     )
     urls = [
@@ -305,20 +306,24 @@ def inspect_with_gallery_dl(url: str) -> dict[str, Any]:
     }
 
 
-def inspect_media(url: str) -> dict[str, Any]:
-    first_error: Exception | None = None
-    try:
-        return inspect_with_ytdlp(url)
-    except Exception as exc:
-        first_error = exc
+def inspect_media(url: str, platform: str) -> dict[str, Any]:
+    # Instagram is usually faster through gallery-dl; TikTok/X are usually better through yt-dlp.
+    methods = (
+        (inspect_with_gallery_dl, inspect_with_ytdlp)
+        if platform == "instagram"
+        else (inspect_with_ytdlp, inspect_with_gallery_dl)
+    )
+    errors: list[str] = []
+    for method in methods:
+        try:
+            return method(url)
+        except Exception as exc:
+            errors.append(str(exc))
 
-    try:
-        return inspect_with_gallery_dl(url)
-    except Exception:
-        message = str(first_error or "تعذر استخراج المحتوى.")
-        if "login" in message.lower() or "cookie" in message.lower() or "private" in message.lower():
-            raise RuntimeError("المنشور خاص أو يتطلب تسجيل دخول. جرّب منشورًا عامًا.")
-        raise RuntimeError("تعذر جلب المنشور. تأكد أنه عام وصحيح ثم جرّب مرة أخرى.")
+    message = " | ".join(errors).lower()
+    if any(word in message for word in ("login", "cookie", "private", "checkpoint")):
+        raise RuntimeError("المنشور عام لكن المنصة طلبت تسجيل دخول. سنحتاج إضافة Cookies للحساب لاحقًا.")
+    raise RuntimeError("تعذر جلب المنشور الآن. تأكد أن الرابط عام وصحيح ثم جرّب مرة أخرى.")
 
 
 def safe_files(directory: str) -> list[Path]:
@@ -488,7 +493,7 @@ def extract() -> Response:
     payload = request.get_json(silent=True) or {}
     try:
         url, platform = validate_social_url(str(payload.get("url", "")))
-        result = inspect_media(url)
+        result = inspect_media(url, platform)
         token = serializer.dumps({"url": url, "platform": platform, "method": result["method"]})
         return jsonify(
             {
@@ -570,6 +575,20 @@ def download(token: str) -> Response:
     finally:
         if not response_created:
             shutil.rmtree(temp_dir, ignore_errors=True)
+
+
+@app.errorhandler(Exception)
+def handle_unexpected_error(exc: Exception):
+    if isinstance(exc, HTTPException):
+        status = exc.code or 500
+        if request.path.startswith("/api/"):
+            return jsonify({"ok": False, "error": exc.description or "حدث خطأ في الطلب."}), status
+        return exc
+
+    app.logger.exception("Unhandled server error")
+    if request.path.startswith("/api/"):
+        return jsonify({"ok": False, "error": "حدث خطأ داخل الخادم أثناء تحليل الرابط. جرّب مرة أخرى."}), 500
+    return friendly_download_error("حدث خطأ داخل الخادم. جرّب مرة أخرى.", 500)
 
 
 @app.errorhandler(413)
