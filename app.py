@@ -180,7 +180,9 @@ def validate_social_url(raw_url: str) -> tuple[str, str]:
 
     if host_matches(host, "soundcloud.com"):
         segments = [s for s in path.split("/") if s]
-        if len(segments) < 2:
+        is_short_link = host_matches(host, "on.soundcloud.com") or host == "on.soundcloud.com"
+        min_segments = 1 if is_short_link else 2
+        if len(segments) < min_segments:
             raise ValueError("استخدم رابط مقطع صوتي محدد من SoundCloud.")
         return url, "soundcloud"
 
@@ -200,8 +202,10 @@ def validate_social_url(raw_url: str) -> tuple[str, str]:
         return url, "ninegag"
 
     if host_matches(host, "snapchat.com"):
-        if "/spotlight/" not in path.lower():
-            raise ValueError("الأداة تدعم Spotlight العام فقط من Snapchat.")
+        is_spotlight = "/spotlight/" in path.lower()
+        is_short_link = re.match(r"^/t/[A-Za-z0-9_-]+", path, re.I)
+        if not (is_spotlight or is_short_link):
+            raise ValueError("الأداة تدعم Spotlight العام فقط من Snapchat (رابط عادي أو مختصر).")
         return url, "snapchat"
 
     if host_matches(host, "bsky.app"):
@@ -509,13 +513,7 @@ def clean_download_name(path: Path, platform: str, mode: str) -> str:
 
 def friendly_download_error(message: str, status: int = 400) -> Response:
     safe_message = html.escape(message)
-    markup = f"""<!doctype html><html lang='ar' dir='rtl'><meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width,initial-scale=1'>
-    <title>تعذر التنزيل</title><style>
-    body{{font-family:Arial,sans-serif;background:#f6f5f2;margin:0;padding:30px;color:#16181c}}
-    main{{max-width:560px;margin:60px auto;background:white;padding:28px;border-radius:18px;border:1px solid #e4e2dd}}
-    h1{{font-size:23px}}p{{line-height:1.8;color:#5b5f66}}a{{display:block;text-align:center;padding:13px;background:#ff2450;color:white;text-decoration:none;border-radius:12px;font-weight:bold}}
-    </style><main><h1>تعذر إكمال التنزيل</h1><p>{safe_message}</p><a href='/'>العودة إلى الأداة</a></main></html>"""
+    markup = f"""<!doctype html><html lang='ar' dir='rtl'><meta charset='utf-8'> <meta name='viewport' content='width=device-width,initial-scale=1'> <title>تعذر التنزيل</title><style> body{{font-family:Arial,sans-serif;background:#f6f5f2;margin:0;padding:30px;color:#16181c}} main{{max-width:560px;margin:60px auto;background:white;padding:28px;border-radius:18px;border:1px solid #e4e2dd}} h1{{font-size:23px}}p{{line-height:1.8;color:#5b5f66}}a{{display:block;text-align:center;padding:13px;background:#ff2450;color:white;text-decoration:none;border-radius:12px;font-weight:bold}} </style><main><h1>تعذر إكمال التنزيل</h1><p>{safe_message}</p><a href='/'>العودة إلى الأداة</a></main></html>"""
     return Response(markup, status=status, mimetype="text/html")
 
 
