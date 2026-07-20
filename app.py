@@ -150,7 +150,18 @@ def validate_social_url(raw_url: str) -> tuple[str, str]:
             raise ValueError("استخدم رابط منشور محدد من X بالشكل x.com/user/status/...")
         return url, "x"
 
-    raise ValueError("الأداة تدعم روابط TikTok وInstagram وX فقط.")
+    if host_matches(host, "youtube.com") or host_matches(host, "youtu.be") or host_matches(host, "music.youtube.com"):
+        valid_path = (
+            host == "youtu.be" and len(path.strip("/")) > 0
+            or re.match(r"^/(watch|shorts/[A-Za-z0-9_-]+|embed/[A-Za-z0-9_-]+|live/[A-Za-z0-9_-]+)", path, re.I)
+        )
+        if path.rstrip("/") == "/watch" and "v=" not in (parsed.query or ""):
+            valid_path = False
+        if not valid_path:
+            raise ValueError("استخدم رابط فيديو محدد من YouTube، وليس رابط قناة أو الصفحة الرئيسية.")
+        return url, "youtube"
+
+    raise ValueError("الأداة تدعم روابط TikTok وInstagram وX وYouTube فقط.")
 
 
 def pin_is_valid() -> bool:
@@ -307,7 +318,7 @@ def inspect_with_gallery_dl(url: str) -> dict[str, Any]:
 
 
 def inspect_media(url: str, platform: str) -> dict[str, Any]:
-    # Instagram is usually faster through gallery-dl; TikTok/X are usually better through yt-dlp.
+    # Instagram is usually faster through gallery-dl; TikTok/X/YouTube are usually better through yt-dlp.
     methods = (
         (inspect_with_gallery_dl, inspect_with_ytdlp)
         if platform == "instagram"
