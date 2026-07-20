@@ -7,43 +7,173 @@
 <title>منزّل السوشيال ميديا</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f6f5f2;--surface:#fff;--surface-soft:#faf9f7;--ink:#16181c;--ink-soft:#5b5f66;--line:#e4e2dd;--platform:#ff2450;--success:#14804a;--danger:#c62828;--radius:18px;--shadow:0 10px 30px rgba(0,0,0,.06)}
-[data-theme="dark"]{--bg:#0e0f11;--surface:#17181b;--surface-soft:#121316;--ink:#f3f3f2;--ink-soft:#9a9da3;--line:#2a2c30;--success:#35c179;--danger:#ff6b6b;--shadow:0 10px 30px rgba(0,0,0,.4)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:'Tajawal',sans-serif;direction:rtl;text-align:right;transition:background .3s,color .3s}button,input,a{font:inherit}.wrap{max-width:700px;margin:auto;padding:28px 20px 60px}header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:12px;min-width:0}.mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--platform),#7b2ff7);display:grid;place-items:center;color:#fff;font-weight:900;font-size:16px;flex:none;box-shadow:0 8px 20px color-mix(in srgb,var(--platform) 25%,transparent)}.brand h1{font-size:18px;margin:0}.brand span{display:block;color:var(--ink-soft);font-size:12px;margin-top:2px}.toggle{width:52px;height:30px;border-radius:20px;border:0;cursor:pointer;background:var(--line);position:relative;flex:none}.toggle:after{content:'';position:absolute;top:3px;right:3px;width:24px;height:24px;border-radius:50%;background:var(--surface);box-shadow:0 2px 6px rgba(0,0,0,.2);transition:.25s}[data-theme="dark"] .toggle:after{transform:translateX(-22px)}
-.tabs{display:flex;overflow-x:auto;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:8px;box-shadow:var(--shadow);margin-bottom:18px;scrollbar-width:thin}
-.tabs::-webkit-scrollbar{height:5px}.tabs::-webkit-scrollbar-thumb{background:var(--line);border-radius:10px}
-.tab{border:0;background:transparent;border-radius:11px;padding:10px 14px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:7px;color:var(--ink-soft);font-weight:700;font-size:13px;white-space:nowrap;flex:none}
-.tab.active{background:color-mix(in srgb,var(--platform) 12%,var(--surface));color:var(--platform)}
-.tab-icon{width:22px;height:22px;border-radius:7px;background:var(--line);display:grid;place-items:center;font-size:10px;flex:none}
-.tab.active .tab-icon{background:var(--platform);color:white}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);margin-bottom:20px}.eyebrow{font-size:13px;color:var(--platform);font-weight:700;margin-bottom:7px}h2{font-size:24px;margin:0 0 8px;font-weight:900}.desc{color:var(--ink-soft);font-size:15px;line-height:1.8;margin:0 0 21px}.input-row{display:flex;gap:10px}.text-input{width:100%;padding:14px 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);outline:0;direction:ltr;text-align:left;font-size:14px}.text-input:focus{border-color:var(--platform)}.primary{border:0;border-radius:12px;background:var(--platform);color:#fff;padding:14px 24px;font-weight:700;cursor:pointer;white-space:nowrap}.primary:disabled{opacity:.5;cursor:wait}.pin-row{margin-top:10px;display:none}.pin-row.show{display:block}.pin-row .text-input{direction:ltr}.hint{color:var(--ink-soft);font-size:12.5px;line-height:1.7;margin-top:11px}.status{display:none;margin-top:16px;font-size:14px;align-items:center;gap:9px}.status.show{display:flex}.status.error{color:var(--danger)}.status.success{color:var(--success)}.status.loading{color:var(--ink-soft)}.spinner{width:17px;height:17px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--platform);animation:spin .75s linear infinite;flex:none}@keyframes spin{to{transform:rotate(360deg)}}.result{display:none}.result.show{display:block;animation:fade .35s ease}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.preview{display:flex;gap:17px;align-items:flex-start}.thumb,.placeholder{width:118px;height:150px;border-radius:14px;border:1px solid var(--line);object-fit:cover;flex:none;background:var(--surface-soft)}.placeholder{display:grid;place-items:center;font-size:28px;font-weight:900;color:var(--platform)}.meta{min-width:0;flex:1}.meta h3{font-size:17px;line-height:1.6;margin:2px 0 7px;overflow-wrap:anywhere}.author{color:var(--ink-soft);font-size:13px;margin-bottom:10px}.badge{display:inline-block;color:var(--success);font-size:12px;font-weight:700;padding:5px 10px;border-radius:8px;background:color-mix(in srgb,var(--success) 13%,transparent)}.details{margin-top:13px;color:var(--ink-soft);font-size:13px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.download{flex:1;min-width:190px;text-align:center;text-decoration:none;border-radius:12px;padding:14px 18px;background:var(--ink);color:var(--bg);font-weight:700}.download.secondary{background:transparent;color:var(--ink);border:1.5px solid var(--line)}.notice{border:1px dashed var(--line);border-radius:14px;padding:14px 16px;margin-top:17px;color:var(--ink-soft);font-size:12.5px;line-height:1.8}.wake{font-size:12px;color:var(--ink-soft);text-align:center;line-height:1.8;margin-top:14px}footer{text-align:center;color:var(--ink-soft);font-size:12px;line-height:1.9}.legal{margin-top:10px;font-size:11px;opacity:.8}
-@media(max-width:570px){.wrap{padding:18px 15px 42px}.brand span{display:none}.tab{font-size:12px;gap:5px;padding:9px 11px}.card{padding:21px 18px}.input-row{display:block}.primary{width:100%;margin-top:10px}.preview{gap:13px}.thumb,.placeholder{width:96px;height:124px}h2{font-size:22px}.download{min-width:100%}}
+:root{
+  --bg:#EAEAE5;--surface:#FFFFFF;--surface-soft:#F4F4F0;
+  --ink:#14161A;--ink-soft:#63666C;--ink-faint:#9A9C9F;
+  --line:#DEDEDA;--line-soft:#EBEBE6;
+  --platform:#ff2450;
+  --success:#146b45;--danger:#b3261e;
+  --radius:14px;--radius-sm:9px;
+  --shadow:0 14px 34px rgba(20,22,26,.07);
+  --font-ar:'Tajawal',sans-serif;--font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+[data-theme="dark"]{
+  --bg:#0E1012;--surface:#17191C;--surface-soft:#121316;
+  --ink:#F1F1EE;--ink-soft:#9A9DA3;--ink-faint:#6A6D72;
+  --line:#2A2C30;--line-soft:#212327;
+  --success:#3FC582;--danger:#FF6B62;
+  --shadow:0 14px 34px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--font-ar);direction:rtl;text-align:right;transition:background .3s,color .3s}
+button,input{font:inherit;color:inherit}
+.mono{font-family:var(--font-mono);direction:ltr;unicode-bidi:isolate;letter-spacing:.01em}
+:focus-visible{outline:2px solid var(--platform);outline-offset:2px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+.wrap{max-width:680px;margin:auto;padding:22px 18px 56px}
+
+/* ---------- console bar ---------- */
+.console{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px;padding:12px 16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.console-id{display:flex;align-items:center;gap:10px;min-width:0}
+.status-dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--ink-faint);box-shadow:0 0 0 3px color-mix(in srgb,var(--ink-faint) 18%,transparent);transition:background .3s,box-shadow .3s}
+.status-dot.ready{background:var(--success);box-shadow:0 0 0 3px color-mix(in srgb,var(--success) 22%,transparent)}
+.status-dot.waking{background:#d9a441;box-shadow:0 0 0 3px color-mix(in srgb,#d9a441 22%,transparent);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.console-text h1{font-size:15px;margin:0;font-weight:700}
+.console-text .sub{font-size:11px;color:var(--ink-faint);margin-top:1px}
+.theme-toggle{width:46px;height:26px;border-radius:20px;border:1px solid var(--line);cursor:pointer;background:var(--surface-soft);position:relative;flex:none;padding:0}
+.theme-toggle:after{content:'';position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:var(--ink);box-shadow:0 2px 5px rgba(0,0,0,.25);transition:transform .25s}
+[data-theme="dark"] .theme-toggle:after{transform:translateX(-20px);background:#F1F1EE}
+
+/* ---------- ledger tabs ---------- */
+.tabs-shell{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;counter-reset:platformidx;border-bottom:1px solid var(--line-soft)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{counter-increment:platformidx;position:relative;border:0;background:transparent;padding:13px 15px 11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--ink-faint);font-weight:700;font-size:11.5px;white-space:nowrap;flex:none;border-bottom:2px solid transparent}
+.tab::before{content:counter(platformidx,decimal-leading-zero);font-family:var(--font-mono);font-size:9px;font-weight:500;color:var(--ink-faint);letter-spacing:.04em}
+.tab .tab-icon{width:19px;height:19px;fill:var(--ink-soft)}
+.tab.active{color:var(--ink);border-bottom-color:var(--platform)}
+.tab.active .tab-icon{fill:var(--platform)}
+.tab.active::before{color:var(--platform)}
+
+/* ---------- primary card ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+.eyebrow{font-size:13px;color:var(--platform);font-weight:700;margin-bottom:9px}
+h2{font-size:22px;margin:0 0 8px;font-weight:900;line-height:1.35}
+.desc{color:var(--ink-soft);font-size:14.5px;line-height:1.85;margin:0 0 22px}
+.input-row{display:flex;gap:9px}
+.text-input{width:100%;padding:13px 15px;border:1.5px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-soft);color:var(--ink);outline:0;direction:ltr;text-align:left;font-family:var(--font-mono);font-size:13px;transition:border-color .2s}
+.text-input:focus{border-color:var(--platform)}
+.primary{border:0;border-radius:var(--radius-sm);background:var(--ink);color:var(--bg);padding:13px 22px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+.primary:disabled{opacity:.45;cursor:wait}
+.primary:not(:disabled):hover{opacity:.88}
+.pin-row{margin-top:9px;display:none}
+.pin-row.show{display:block}
+.pin-row .text-input{direction:ltr}
+.hint{color:var(--ink-faint);font-size:12px;line-height:1.75;margin-top:12px}
+.status{display:none;margin-top:15px;font-size:13.5px;align-items:center;gap:9px}
+.status.show{display:flex}
+.status.error{color:var(--danger)}
+.status.success{color:var(--success)}
+.status.loading{color:var(--ink-soft)}
+.spinner{width:15px;height:15px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--platform);animation:spin .75s linear infinite;flex:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- manifest ticket (result) ---------- */
+.result{display:none;padding:24px 26px 8px}
+.result.show{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.preview{display:flex;gap:16px;align-items:flex-start}
+.thumb,.placeholder{width:96px;height:124px;border-radius:10px;border:1px solid var(--line);object-fit:cover;flex:none;background:var(--surface-soft)}
+.placeholder{display:grid;place-items:center;font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--platform)}
+.meta{min-width:0;flex:1;padding-top:2px}
+.meta h3{font-size:16px;line-height:1.6;margin:2px 0 7px;overflow-wrap:anywhere;font-weight:700}
+.author{color:var(--ink-soft);font-size:12.5px;margin-bottom:11px}
+.badge{display:inline-flex;align-items:center;gap:6px;color:var(--success);font-size:12px;font-weight:700;padding:4px 10px;border-radius:6px;background:color-mix(in srgb,var(--success) 13%,transparent)}
+.details{margin-top:12px;color:var(--ink-faint);font-size:12.5px}
+
+.tear{position:relative;height:0;margin:22px -26px 18px}
+.tear i{position:absolute;inset:0 0 auto;border-top:2px dashed var(--line);display:block;font-style:normal}
+.tear::before,.tear::after{content:'';position:absolute;top:-11px;width:22px;height:22px;border-radius:50%;background:var(--bg);border:1px solid var(--line-soft)}
+.tear::before{left:-12px}
+.tear::after{right:-12px}
+
+.actions{display:flex;gap:9px;flex-wrap:wrap;padding-bottom:20px}
+.download{flex:1;min-width:180px;text-align:center;text-decoration:none;border-radius:var(--radius-sm);padding:13px 18px;background:var(--ink);color:var(--bg);font-weight:700;font-size:14px;transition:opacity .2s}
+.download:hover{opacity:.88}
+.download.secondary{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.notice{border-top:1px solid var(--line-soft);margin:0 -26px;padding:14px 26px 20px;color:var(--ink-faint);font-size:11.5px;line-height:1.85}
+
+footer{text-align:center;color:var(--ink-faint);font-size:11.5px;line-height:1.9;margin-top:6px}
+footer .legal{margin-top:8px;font-size:10.5px;opacity:.85}
+
+@media(max-width:570px){
+  .wrap{padding:16px 13px 46px}
+  .console-text .sub{font-size:10px}
+  .card{padding:20px 17px}
+  .result{padding:20px 19px 6px}
+  .tear{margin-inline:-19px}
+  .notice{margin-inline:-19px;padding-inline:19px}
+  .input-row{display:block}
+  .primary{width:100%;margin-top:9px}
+  .preview{gap:12px}
+  .thumb,.placeholder{width:80px;height:104px}
+  h2{font-size:20px}
+  .download{min-width:100%}
+  .tab{padding:11px 12px 9px;font-size:11px}
+}
 </style>
 </head>
 <body data-theme="light">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></symbol>
+<symbol id="i-reddit" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z"/></symbol>
+<symbol id="i-pinterest" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></symbol>
+<symbol id="i-dailymotion" viewBox="0 0 24 24"><path d="M21.823 7.327a11.928 11.928 0 0 0-2.606-3.814 12.126 12.126 0 0 0-3.866-2.57A12.246 12.246 0 0 0 10.617 0H1.831a.602.602 0 0 0-.609.603v3.764c0 .162.064.312.179.426l4.164 4.123a.612.612 0 0 0 .439.177h4.56c.806 0 1.56.313 2.125.88.557.559.856 1.296.843 2.075-.029 1.571-1.343 2.849-2.931 2.849h-6.74a.613.613 0 0 0-.432.176.619.619 0 0 0-.178.427v3.764c0 .162.063.312.178.427l4.139 4.099a.647.647 0 0 0 .476.21h2.572a12.276 12.276 0 0 0 4.733-.945 12.145 12.145 0 0 0 3.866-2.571 11.959 11.959 0 0 0 2.607-3.813c.633-1.479.956-3.051.956-4.67 0-1.619-.321-3.19-.956-4.669l.001-.005ZM2.441 4.118V1.982l2.945 2.755.001 2.297-2.946-2.916Zm4.975 17.813-2.945-2.917v-2.137l2.945 2.755v2.299Zm-2.004-5.832h5.19c2.248 0 4.107-1.807 4.147-4.03a4.027 4.027 0 0 0-1.192-2.937 4.203 4.203 0 0 0-2.996-1.239H6.606V5.216h3.996c1.831 0 3.553.706 4.849 1.986a6.724 6.724 0 0 1-.152 9.736 6.875 6.875 0 0 1-4.697 1.84H8.275L5.412 16.1v-.001Zm15.289.1a10.753 10.753 0 0 1-2.345 3.431 10.91 10.91 0 0 1-3.48 2.314 11.018 11.018 0 0 1-4.26.847H8.633v-2.814h1.916c2.145 0 4.161-.802 5.675-2.254a7.88 7.88 0 0 0 2.451-5.728c0-2.177-.87-4.21-2.451-5.728-1.514-1.454-3.528-2.254-5.675-2.254h-4.16L3.383 1.202h7.234c1.479 0 2.911.285 4.259.847a10.957 10.957 0 0 1 3.48 2.313 10.769 10.769 0 0 1 2.345 3.432c.571 1.33.86 2.743.86 4.202 0 1.46-.289 2.873-.86 4.203Z"/></symbol>
+<symbol id="i-vimeo" viewBox="0 0 24 24"><path d="M23.9765 6.4168c-.105 2.338-1.739 5.5429-4.894 9.6088-3.2679 4.247-6.0258 6.3699-8.2898 6.3699-1.409 0-2.578-1.294-3.553-3.881l-1.9179-7.1138c-.719-2.584-1.488-3.878-2.312-3.878-.179 0-.806.378-1.8809 1.132l-1.129-1.457a315.06 315.06 0 003.501-3.1279c1.579-1.368 2.765-2.085 3.5539-2.159 1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.5069.5389 2.45 1.1309 3.674 1.7759 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.8679 3.434-5.7568 6.7619-5.6368 2.4729.06 3.6279 1.664 3.4929 4.7969z"/></symbol>
+<symbol id="i-rumble" viewBox="0 0 24 24"><path d="M14.4528 13.5458c.8064-.6542.9297-1.8381.2756-2.6445a1.8802 1.8802 0 0 0-.2756-.2756 21.2127 21.2127 0 0 0-4.3121-2.776c-1.066-.51-2.256.2-2.4261 1.414a23.5226 23.5226 0 0 0-.14 5.5021c.116 1.23 1.292 1.964 2.372 1.492a19.6285 19.6285 0 0 0 4.5062-2.704v-.008zm6.9322-5.4002c2.0335 2.228 2.0396 5.637.014 7.8723A26.1487 26.1487 0 0 1 8.2946 23.846c-2.6848.6713-5.4168-.914-6.1662-3.5781-1.524-5.2002-1.3-11.0803.17-16.3045.772-2.744 3.3521-4.4661 6.0102-3.832 4.9242 1.174 9.5443 4.196 13.0764 8.0121v.002z"/></symbol>
+<symbol id="i-soundcloud" viewBox="0 0 24 24"><path d="M23.999 14.165c-.052 1.796-1.612 3.169-3.4 3.169h-8.18a.68.68 0 0 1-.675-.683V7.862a.747.747 0 0 1 .452-.724s.75-.513 2.333-.513a5.364 5.364 0 0 1 2.763.755 5.433 5.433 0 0 1 2.57 3.54c.282-.08.574-.121.868-.12.884 0 1.73.358 2.347.992s.948 1.49.922 2.373ZM10.721 8.421c.247 2.98.427 5.697 0 8.672a.264.264 0 0 1-.53 0c-.395-2.946-.22-5.718 0-8.672a.264.264 0 0 1 .53 0ZM9.072 9.448c.285 2.659.37 4.986-.006 7.655a.277.277 0 0 1-.55 0c-.331-2.63-.256-5.02 0-7.655a.277.277 0 0 1 .556 0Zm-1.663-.257c.27 2.726.39 5.171 0 7.904a.266.266 0 0 1-.532 0c-.38-2.69-.257-5.21 0-7.904a.266.266 0 0 1 .532 0Zm-1.647.77a26.108 26.108 0 0 1-.008 7.147.272.272 0 0 1-.542 0 27.955 27.955 0 0 1 0-7.147.275.275 0 0 1 .55 0Zm-1.67 1.769c.421 1.865.228 3.5-.029 5.388a.257.257 0 0 1-.514 0c-.21-1.858-.398-3.549 0-5.389a.272.272 0 0 1 .543 0Zm-1.655-.273c.388 1.897.26 3.508-.01 5.412-.026.28-.514.283-.54 0-.244-1.878-.347-3.54-.01-5.412a.283.283 0 0 1 .56 0Zm-1.668.911c.4 1.268.257 2.292-.026 3.572a.257.257 0 0 1-.514 0c-.241-1.262-.354-2.312-.023-3.572a.283.283 0 0 1 .563 0Z"/></symbol>
+<symbol id="i-twitch" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
+<symbol id="i-imgur" viewBox="0 0 24 24"><path d="M21.147 3.043c-.002-.113-.069-.182-.189-.191a14.117 14.117 0 00-.51-.045l-.162-.01a21.998 21.998 0 00-1.085-.046l-.217-.005c-.172-.003-.35-.004-.532-.004l-.189-.001c-.295 0-.601.003-.919.01l-.106.003a55.86 55.86 0 00-.87.026l-.237.009c-.335.013-.676.029-1.027.049l-.012.001c-.357.021-.724.045-1.095.071l-.275.021c-.304.023-.609.048-.92.076l-.25.021c-.38.035-.766.074-1.156.115-.08.009-.161.019-.242.027-.319.035-.641.073-.965.113l-.33.042c-.403.051-.806.105-1.212.164a.547.547 0 00-.154.045.303.303 0 00-.097.074l-.003.002c-.045.055-.047.12.004.179.003.004.002.008.005.012l3.488 3.456-6.629 6.596c-.069.067-.068.165 0 .251.856 1.093 1.44 1.793 2.143 2.492.699.703 1.398 1.286 2.493 2.143a.216.216 0 00.132.051.167.167 0 00.119-.051l6.597-6.629 3.455 3.488a.143.143 0 00.101.047c.096 0 .187-.118.212-.292.746-5.141.882-10.051.634-12.31z M15.87 24l6.356-6.357.026-.026.156-.155-.006-.006a3.144 3.144 0 00.822-1.711c.804-5.53.903-10.591.654-12.952a2.904 2.904 0 00-.834-1.812 2.96 2.96 0 00-1.816-.855C20.458.042 19.476 0 18.318 0c-2.999 0-6.667.284-10.063.777a3.143 3.143 0 00-1.887.991L0 8.137V24H15.87zm1.528-6.707c-.151 0-.563.405-.563.613a.1.1 0 01-.099.1.1.1 0 01-.099-.1c0-.208-.411-.613-.563-.613a.1.1 0 01-.099-.1c0-.054.044-.098.099-.098.152 0 .563-.404.563-.614 0-.055.044-.098.099-.098.054 0 .099.043.099.098 0 .21.412.614.563.614a.1.1 0 010 .198zM5.4 7.045c.197 0 .735-.528.735-.801a.13.13 0 01.128-.129c.071 0 .128.058.128.129 0 .272.538.801.735.801.071 0 .128.057.128.128a.128.128 0 01-.128.128c-.197 0-.735.528-.735.801a.128.128 0 01-.128.128.128.128 0 01-.128-.128c0-.273-.538-.801-.735-.801a.128.128 0 010-.256zm-3.99 3.26c0-.065.057-.098.119-.118.69-.228 1.269-.8 1.403-1.554.011-.064.053-.118.118-.118.066 0 .107.054.119.118.133.754.711 1.326 1.401 1.554.062.02.118.053.118.118s-.056.098-.118.119c-.69.227-1.269.799-1.403 1.553-.011.064-.053.119-.119.119-.065 0-.106-.054-.118-.119-.134-.754-.713-1.326-1.403-1.553-.061-.022-.117-.054-.117-.119zm1.565 9.307c-.113 0-.42.302-.42.459 0 .04-.034.073-.074.073a.074.074 0 01-.074-.073c0-.157-.307-.459-.42-.459a.074.074 0 01-.074-.073c0-.039.034-.073.074-.073.113 0 .42-.302.42-.457 0-.042.033-.073.074-.073.04 0 .074.031.074.073 0 .155.307.457.42.457.04 0 .073.034.073.073a.073.073 0 01-.073.073zm.568-3.047c-.14 0-.521.375-.521.568a.092.092 0 11-.183 0c0-.193-.381-.568-.521-.568a.09.09 0 01-.091-.09c0-.051.041-.092.091-.092.14 0 .521-.375.521-.568a.09.09 0 01.092-.09.09.09 0 01.091.09c0 .193.381.568.521.568a.091.091 0 010 .182zm3.334 4.382c-.203 0-.758.546-.758.827 0 .073-.06.133-.132.133a.133.133 0 01-.133-.133c0-.281-.555-.827-.758-.827a.134.134 0 01-.133-.133c0-.073.059-.132.133-.132.204 0 .758-.545.758-.828 0-.071.06-.132.133-.132.073 0 .132.061.132.132 0 .283.555.828.758.828.074 0 .133.059.133.132a.133.133 0 01-.133.133zm1.922-.806c-1.086-.851-1.869-1.498-2.653-2.287-.789-.784-1.436-1.566-2.287-2.654-.626-.8-.566-1.897.144-2.607l.001-.001.002-.001L9.364 7.26 7.149 5.066l-.003-.003-.002-.003c-.52-.52-.7-1.27-.472-1.958.148-.447.464-.802.867-1.049a1.983 1.983 0 01.371-.19 2.1 2.1 0 01.468-.131c.005 0 .009-.003.014-.004C11.746 1.24 15.363.96 18.317.96h.002c1.125 0 2.072.041 2.818.121.469.046.903.249 1.228.576.328.331.525.767.562 1.237.243 2.311.144 7.253-.651 12.714-.001.01-.006.016-.007.025a2.258 2.258 0 01-.18.586c-.006.014-.01.028-.018.042-.333.699-1.001 1.163-1.771 1.163-.51 0-.992-.2-1.358-.567l-.003-.002-.004-.004-2.192-2.215-5.333 5.359-.001.002h-.001a1.94 1.94 0 01-1.378.573c-.44 0-.877-.151-1.231-.429zm2.576 2.09c-.139 0-.518.373-.518.566a.09.09 0 01-.091.09.09.09 0 01-.09-.09c0-.193-.379-.566-.519-.566a.09.09 0 110-.18c.139 0 .519-.373.519-.566a.09.09 0 01.09-.09c.05 0 .091.041.091.09 0 .193.379.566.518.566.05 0 .091.039.091.09s-.04.09-.091.09zm2.115-2.437c.248 0 .922-.662.922-1.003 0-.088.072-.161.161-.161.088 0 .161.073.161.161 0 .341.674 1.003.921 1.003.089 0 .161.073.161.161a.16.16 0 01-.161.161c-.247 0-.921.662-.921 1.005a.162.162 0 01-.161.162.162.162 0 01-.161-.162c0-.343-.674-1.005-.922-1.005a.161.161 0 010-.322z"/></symbol>
+<symbol id="i-ninegag" viewBox="0 0 24 24"><path d="m17.279 21.008 5.193-2.995V5.992l-5.193-2.996C14.423 1.348 12.048 0 12 0c-.048 0-2.423 1.348-5.279 2.996L1.528 5.992v2.354l5.193 2.996c2.856 1.648 5.232 2.996 5.28 2.996.048 0 1.469-.797 3.157-1.772a229.633 229.633 0 0 1 3.097-1.772c.016 0 .027 1.096.027 2.437l-.002 2.436-3.076 1.772c-1.692.975-3.115 1.783-3.163 1.795-.048.013-1.471-.776-3.162-1.752-1.69-.976-3.113-1.775-3.161-1.775-.155 0-4.036 2.274-4.011 2.35.031.093 10.136 5.937 10.276 5.943.057.002 2.44-1.344 5.296-2.992ZM9.847 8.391c-1.118-.65-2.033-1.2-2.033-1.222 0-.071 4.06-2.376 4.186-2.376.125 0 4.186 2.305 4.186 2.376 0 .063-4.047 2.375-4.184 2.39-.068.007-1.037-.519-2.155-1.168Z"/></symbol>
+<symbol id="i-snapchat" viewBox="0 0 24 24"><path d="M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z"/></symbol>
+<symbol id="i-bluesky" viewBox="0 0 24 24"><path d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"/></symbol>
+</svg>
 <div class="wrap">
-<header>
-  <div class="brand"><div class="mark" id="brandMark">T</div><div><h1>منزّل السوشيال ميديا</h1><span>تحميل مباشر من داخل الأداة</span></div></div>
-  <button class="toggle" id="themeToggle" aria-label="تبديل الوضع"></button>
-</header>
 
+<div class="console">
+  <div class="console-id">
+    <span class="status-dot" id="serverDot" aria-hidden="true"></span>
+    <div class="console-text">
+      <h1>منزّل السوشيال ميديا</h1>
+      <div class="sub" id="serverLabel">فحص حالة الخادم…</div>
+    </div>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع الداكن"></button>
+</div>
+
+<div class="tabs-shell">
 <nav class="tabs" aria-label="اختيار المنصة">
-  <button class="tab active" data-platform="tiktok" type="button"><span class="tab-icon">T</span>TikTok</button>
-  <button class="tab" data-platform="x" type="button"><span class="tab-icon">X</span>X</button>
-  <button class="tab" data-platform="reddit" type="button"><span class="tab-icon">R</span>Reddit</button>
-  <button class="tab" data-platform="pinterest" type="button"><span class="tab-icon">P</span>Pinterest</button>
-  <button class="tab" data-platform="dailymotion" type="button"><span class="tab-icon">D</span>Dailymotion</button>
-  <button class="tab" data-platform="vimeo" type="button"><span class="tab-icon">V</span>Vimeo</button>
-  <button class="tab" data-platform="rumble" type="button"><span class="tab-icon">Rb</span>Rumble</button>
-  <button class="tab" data-platform="soundcloud" type="button"><span class="tab-icon">SC</span>SoundCloud</button>
-  <button class="tab" data-platform="twitch" type="button"><span class="tab-icon">Tw</span>Twitch</button>
-  <button class="tab" data-platform="imgur" type="button"><span class="tab-icon">Im</span>Imgur</button>
-  <button class="tab" data-platform="ninegag" type="button"><span class="tab-icon">9G</span>9GAG</button>
-  <button class="tab" data-platform="snapchat" type="button"><span class="tab-icon">Sn</span>Snapchat</button>
-  <button class="tab" data-platform="bluesky" type="button"><span class="tab-icon">Bs</span>Bluesky</button>
+  <button class="tab active" data-platform="tiktok" type="button"><svg class="tab-icon"><use href="#i-tiktok"></use></svg>TikTok</button>
+  <button class="tab" data-platform="x" type="button"><svg class="tab-icon"><use href="#i-x"></use></svg>X</button>
+  <button class="tab" data-platform="reddit" type="button"><svg class="tab-icon"><use href="#i-reddit"></use></svg>Reddit</button>
+  <button class="tab" data-platform="pinterest" type="button"><svg class="tab-icon"><use href="#i-pinterest"></use></svg>Pinterest</button>
+  <button class="tab" data-platform="dailymotion" type="button"><svg class="tab-icon"><use href="#i-dailymotion"></use></svg>Dailymotion</button>
+  <button class="tab" data-platform="vimeo" type="button"><svg class="tab-icon"><use href="#i-vimeo"></use></svg>Vimeo</button>
+  <button class="tab" data-platform="rumble" type="button"><svg class="tab-icon"><use href="#i-rumble"></use></svg>Rumble</button>
+  <button class="tab" data-platform="soundcloud" type="button"><svg class="tab-icon"><use href="#i-soundcloud"></use></svg>SoundCloud</button>
+  <button class="tab" data-platform="twitch" type="button"><svg class="tab-icon"><use href="#i-twitch"></use></svg>Twitch</button>
+  <button class="tab" data-platform="imgur" type="button"><svg class="tab-icon"><use href="#i-imgur"></use></svg>Imgur</button>
+  <button class="tab" data-platform="ninegag" type="button"><svg class="tab-icon"><use href="#i-ninegag"></use></svg>9GAG</button>
+  <button class="tab" data-platform="snapchat" type="button"><svg class="tab-icon"><use href="#i-snapchat"></use></svg>Snapchat</button>
+  <button class="tab" data-platform="bluesky" type="button"><svg class="tab-icon"><use href="#i-bluesky"></use></svg>Bluesky</button>
 </nav>
+</div>
 
 <main>
 <section class="card">
@@ -57,10 +187,10 @@
   <div class="pin-row" id="pinRow"><input class="text-input" id="pinInput" type="password" placeholder="رمز دخول الأداة" inputmode="numeric" autocomplete="off"></div>
   <div class="hint" id="platformHint">يدعم فيديوهات وصور TikTok العامة.</div>
   <div class="status" id="status" role="status" aria-live="polite"></div>
-  <div class="wake">على الخطة المجانية قد يستغرق أول طلب بعد فترة توقف قرابة دقيقة حتى يستيقظ الخادم.</div>
-</section>
+  </section>
 
-<section class="card result" id="resultCard">
+<section class="card result" id="resultCard" style="padding-top:0;padding-bottom:0">
+  <div style="padding-top:24px">
   <div class="preview">
     <img class="thumb" id="thumb" alt="صورة المحتوى" hidden>
     <div class="placeholder" id="placeholder">T</div>
@@ -71,8 +201,10 @@
       <div class="details" id="resultDetails"></div>
     </div>
   </div>
+  </div>
+  <div class="tear"><i></i></div>
   <div class="actions" id="actions"></div>
-  <div class="notice">يتم تجهيز الملف على الخادم ثم إرساله مباشرة إلى جهازك. المنشورات الخاصة أو التي تتطلب تسجيل دخول لن تعمل.</div>
+  <div class="notice">يتم تجهيز الملف على الخادم ثم إرساله مباشرة إلى جهازك. المنشورات الخاصة أو التي تتطلب تسجيل دخول لن تعمل بدون إضافة Cookies لاحقًا.</div>
 </section>
 </main>
 
@@ -104,7 +236,7 @@ const body=document.body,urlInput=$('urlInput'),fetchBtn=$('fetchBtn'),status=$(
 function saveTheme(v){try{localStorage.setItem('social-theme',v)}catch{}}
 try{const saved=localStorage.getItem('social-theme');if(saved)body.dataset.theme=saved}catch{}
 $('themeToggle').onclick=()=>{body.dataset.theme=body.dataset.theme==='dark'?'light':'dark';saveTheme(body.dataset.theme)};
-function switchPlatform(name,keep=false){const c=configs[name];if(!c)return;active=name;document.documentElement.style.setProperty('--platform',c.color);$('brandMark').textContent=c.mark;$('eyebrow').textContent=c.eyebrow;$('heroTitle').textContent=c.title;$('heroDesc').textContent=c.desc;$('platformHint').textContent=c.hint;urlInput.placeholder=c.placeholder;document.querySelectorAll('.tab').forEach(t=>{const isActive=t.dataset.platform===name;t.classList.toggle('active',isActive);if(isActive)t.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})});if(!keep)urlInput.value='';reset();clearStatus()}
+function switchPlatform(name,keep=false){const c=configs[name];if(!c)return;active=name;document.documentElement.style.setProperty('--platform',c.color);$('placeholder').textContent=c.mark;$('eyebrow').textContent=c.eyebrow;$('heroTitle').textContent=c.title;$('heroDesc').textContent=c.desc;$('platformHint').textContent=c.hint;urlInput.placeholder=c.placeholder;document.querySelectorAll('.tab').forEach(t=>{const isActive=t.dataset.platform===name;t.classList.toggle('active',isActive);if(isActive)t.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})});if(!keep)urlInput.value='';reset();clearStatus()}
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>switchPlatform(t.dataset.platform));
 function detect(url){
   try{
@@ -132,7 +264,24 @@ function reset(){resultCard.classList.remove('show');actions.innerHTML='';$('thu
 async function loadConfig(){try{const r=await fetch('/api/config');const d=await r.json();pinRequired=!!d.pin_required;$('pinRow').classList.toggle('show',pinRequired)}catch{}}
 function addDownload(label,href,secondary=false){const a=document.createElement('a');a.className='download'+(secondary?' secondary':'');a.textContent=label;a.href=href;a.setAttribute('download','');a.addEventListener('click',()=>setStatus('بدأ الخادم في تجهيز الملف. اترك الصفحة مفتوحة حتى يبدأ التنزيل.','success'));actions.appendChild(a)}
 async function extract(){const url=urlInput.value.trim();if(!url){setStatus('الصق رابط المحتوى أولًا.','error');return}const platform=detect(url);if(!platform){setStatus('الرابط ده مش من منصة مدعومة حاليًا.','error');return}if(platform!==active)switchPlatform(platform,true);if(pinRequired&&!$('pinInput').value.trim()){setStatus('اكتب رمز دخول الأداة.','error');return}reset();fetchBtn.disabled=true;setStatus('جاري تحليل الرابط وتجهيز خيارات التنزيل...','loading');try{const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),120000);const response=await fetch('/api/extract',{method:'POST',headers:{'Content-Type':'application/json','X-App-Pin':$('pinInput').value.trim()},body:JSON.stringify({url}),signal:controller.signal});clearTimeout(timer);const raw=await response.text();let data;try{data=JSON.parse(raw)}catch{throw new Error(response.status>=500?'الخادم توقف أثناء تحليل الرابط. أعد المحاولة بعد لحظات.':'وصلت استجابة غير متوقعة من الخادم.')}if(!response.ok||!data.ok)throw new Error(data.error||'تعذر تحليل الرابط.');$('resultTitle').textContent=data.title||'محتوى جاهز للتنزيل';$('resultAuthor').textContent=data.author||'';const count=Number(data.count||1),duration=data.duration?` • ${Math.round(data.duration)} ثانية`:'';$('resultDetails').textContent=(count>1?`${count} ملفات وسيتم إرسالها في ملف ZIP`:'ملف واحد جاهز')+duration;if(data.thumbnail){$('thumb').src=data.thumbnail;$('thumb').hidden=false;$('placeholder').hidden=true;$('thumb').onerror=()=>{$('thumb').hidden=true;$('placeholder').hidden=false}}else{$('placeholder').textContent=configs[data.platform].mark}addDownload(count>1?'تنزيل كل المحتوى ZIP':'تنزيل المحتوى',data.download_url);if(data.audio_url)addDownload('تنزيل الصوت MP3',data.audio_url,true);resultCard.classList.add('show');clearStatus();resultCard.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(error){setStatus(error.name==='AbortError'?'استغرق الخادم وقتًا طويلًا. جرّب مرة أخرى.':error.message,'error')}finally{fetchBtn.disabled=false}}
-fetchBtn.onclick=extract;urlInput.addEventListener('keydown',e=>{if(e.key==='Enter')extract()});loadConfig();switchPlatform('tiktok');
+fetchBtn.onclick=extract;urlInput.addEventListener('keydown',e=>{if(e.key==='Enter')extract()});
+
+/* server health indicator — قراءة فعلية من /health بدل نص ثابت */
+async function checkHealth(){
+  const dot=$('serverDot'),label=$('serverLabel');
+  dot.className='status-dot waking';label.textContent='جاري تنشيط الخادم…';
+  try{
+    const controller=new AbortController();const t=setTimeout(()=>controller.abort(),8000);
+    const r=await fetch('/health',{signal:controller.signal});clearTimeout(t);
+    if(r.ok){dot.className='status-dot ready';label.textContent='الخادم جاهز';return}
+    throw new Error('bad status');
+  }catch{
+    dot.className='status-dot waking';label.textContent='جاري إعادة المحاولة…';
+    setTimeout(checkHealth,15000);
+  }
+}
+checkHealth();
+loadConfig();switchPlatform('tiktok');
 })();
 </script>
 </body>
